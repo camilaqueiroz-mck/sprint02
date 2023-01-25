@@ -1,7 +1,7 @@
 name: hello-world
 on:
  push:
-   branches: [ "main" ]
+   branches: [ "grupo-lilas-ex" ]
 jobs:
   my-job:
     runs-on: ubuntu-latest
