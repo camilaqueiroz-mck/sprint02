@@ -1,6 +1,6 @@
 name: hello-world
 on:
- pull_request:
+ push:
    branches: [ "main" ]
 jobs:
   my-job:
