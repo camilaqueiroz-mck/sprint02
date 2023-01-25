@@ -13,7 +13,6 @@ jobs:
           pwd
           ls -la
           cd java-api
-          cd target
           ls -la
 
       
