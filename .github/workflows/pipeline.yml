@@ -8,13 +8,11 @@ jobs:
     steps:
       - name: Checkout repo
         uses: actions/checkout@v1
-    steps:
       - name: List files and Change dir
         run: |
           pwd
           ls -la
           cd java-api
-    steps:
       - uses: actions/setup-java@v3
         with:
           distribution: 'temurin'
