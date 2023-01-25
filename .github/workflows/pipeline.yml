@@ -14,5 +14,6 @@ jobs:
           ls -la
           cd java-api
           ls -la
+          mvn clean install
 
       
