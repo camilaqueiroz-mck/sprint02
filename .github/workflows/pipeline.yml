@@ -8,6 +8,6 @@ jobs:
     steps:
       - name: List Files
         run: | 
-        pwd
-        ls -la
+          pwd
+          ls -la
       
