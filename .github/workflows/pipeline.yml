@@ -1,22 +1,47 @@
-name: hello-world
+name: Deploy to ECR
 on:
  push:
    branches: [ "grupo-lilas-ex" ]
 jobs:
   my-job:
+    permissions:
+      id-token: write # need this for OIDC
+      contents: read
     runs-on: ubuntu-latest
+    env:
+     AWS_DEFAULT_REGION: us-east-1
     steps:
-      - name: Checkout repo
+      - name: Checkout
         uses: actions/checkout@v1
-      - name: List files and Change dir
-        run: |
-          pwd
-          cd java-api
-          ls -la
-      - uses: actions/setup-java@v3
+
+      - name: configureawscredentials
+        uses: aws-actions/configure-aws-credentials@v1
         with:
-          distribution: 'temurin'
-          java-version: '17'
-          cache: 'maven'
-      - name: Build with Maven
-        run: mvn -B package --file pom.xml
+          role-to-assume: ${{ secrets.AWS_ROLE_ARN_GROUP_LILAS }}
+          role-session-name: samplerolesession
+          aws-region: ${{env.AWS_DEFAULT_REGION}}
+
+      - name: Login do AWS
+        id: login-ecr
+        uses: aws-actions/amazon-ecr-login@v1
+      - name: Build, Tag and Push image do AWS
+        env: 
+          ECR_REGISTRY: ${{ steps.login-ecr.outputs.registry }}
+          ECR_REPOSITORY: ${{secrets.REPO_NAME_GPLILAS}}
+          IMAGE_TAG: ${{ github.sha }}
+        run: |
+          docker build -t $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG .
+          docker push $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG
+
+
+
+
+
+      # Açao para gerar o .jar do projeto 
+      # - uses: actions/setup-java@v3
+      #   with:
+      #     distribution: 'temurin'
+      #     java-version: '17'
+      #     cache: 'maven'
+      # - name: Build with Maven
+      #   run: mvn -B package --file pom.xml
