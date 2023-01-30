@@ -37,7 +37,8 @@ jobs:
           ECR_REPOSITORY: ${{secrets.REPO_NAME_GPLILAS}}
           IMAGE_TAG: ${{ github.sha }}
         run: |
-          ls
+          cd java-api
+          ls -la
           docker build -t $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG .
           docker push $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG
 
