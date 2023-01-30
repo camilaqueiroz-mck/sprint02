@@ -14,6 +14,12 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v1
 
+      - name: Download Java
+        uses: actions/setup-java@v3
+        with:
+          distribution: 'temurin'
+          java-version: '17'
+
       - name: configureawscredentials
         uses: aws-actions/configure-aws-credentials@v1
         with:
@@ -24,6 +30,7 @@ jobs:
       - name: Login do AWS
         id: login-ecr
         uses: aws-actions/amazon-ecr-login@v1
+
       - name: Build, Tag and Push image do AWS
         env: 
           ECR_REGISTRY: ${{ steps.login-ecr.outputs.registry }}
