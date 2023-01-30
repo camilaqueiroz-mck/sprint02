@@ -23,7 +23,7 @@ jobs:
       - name: configureawscredentials
         uses: aws-actions/configure-aws-credentials@v1
         with:
-          role-to-assume: ${{ secrets.AWS_ROLE_ARN_GROUP_LILAS }}
+          role-to-assume: ${{ secrets.AWS_ROLE_ARN_CAMILA }}
           role-session-name: samplerolesession
           aws-region: ${{env.AWS_DEFAULT_REGION}}
 
