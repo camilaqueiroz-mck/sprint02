@@ -38,6 +38,7 @@ jobs:
           cd java-api
           ls -la
           mvn -B package --file pom.xml
+          ls
 
       - name: Build, Tag and Push image do AWS
         env: 
