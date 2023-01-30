@@ -36,9 +36,9 @@ jobs:
           pwd
           ls
           cd java-api
-          cd target
           ls -la
           mvn -B package --file pom.xml
+          cd target
           ls
 
       - name: Build, Tag and Push image do AWS
