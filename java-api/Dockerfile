@@ -2,7 +2,7 @@
 FROM eclipse-temurin:17-jdk-jammy
 
 # Copy jar file
-COPY . /app
+COPY target/java-api-0.0.1-SNAPSHOT.jar /app/target
 
 WORKDIR /app
 
