@@ -20,11 +20,11 @@ jobs:
           distribution: 'temurin'
           java-version: '17'
 
-      - name: configureawscredentials
+      - name: Configure AWS Credentials
         uses: aws-actions/configure-aws-credentials@v1
         with:
           role-to-assume: ${{ secrets.AWS_ROLE_ARN_CAMILA }}
-          role-session-name: samplerolesession
+         # role-session-name: samplerolesession
           aws-region: ${{env.AWS_DEFAULT_REGION}}
 
       - name: Login do AWS
