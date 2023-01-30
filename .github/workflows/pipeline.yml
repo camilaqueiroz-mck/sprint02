@@ -36,6 +36,7 @@ jobs:
           pwd
           ls
           cd java-api
+          cd target
           ls -la
           mvn -B package --file pom.xml
           ls
