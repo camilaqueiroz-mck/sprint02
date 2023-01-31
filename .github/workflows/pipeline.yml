@@ -24,6 +24,7 @@ jobs:
         uses: aws-actions/configure-aws-credentials@v1
         with:
           role-to-assume: ${{ secrets.AWS_ROLE_ARN_CAMILA }}
+         # role-session-name: samplerolesession
           aws-region: ${{env.AWS_DEFAULT_REGION}}
 
       - name: Login do AWS
@@ -32,7 +33,13 @@ jobs:
 
       - name: Build with Maven
         run: |
-          mvn install -e  -f java-api/pom.xml
+          pwd
+          ls
+          cd java-api
+          ls -la
+          mvn -B package --file pom.xml
+          cd target
+          ls
 
       - name: Build, Tag and Push image do AWS
         env: 
@@ -40,6 +47,21 @@ jobs:
           ECR_REPOSITORY: ${{secrets.REPO_NAME_GPLILAS}}
           IMAGE_TAG: ${{ github.sha }}
         run: |
+          pwd
+          ls
+          cd java-api
           docker build -t $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG .
           docker push $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG
-          
+
+
+
+
+
+      # Açao para gerar o .jar do projeto 
+      # - uses: actions/setup-java@v3
+      #   with:
+      #     distribution: 'temurin'
+      #     java-version: '17'
+      #     cache: 'maven'
+      # - name: Build with Maven
+      #   run: mvn -B package --file pom.xml
